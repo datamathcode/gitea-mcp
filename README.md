@@ -117,21 +117,27 @@ In Claude Desktop's MCP config (`claude_desktop_config.json`):
 > [!IMPORTANT]
 > Use the full path from `which gitea-mcp`, not just `"gitea-mcp"`. Claude Desktop, launched via Finder/Dock on macOS, doesn't inherit your shell's `PATH` additions — a bare command name resolves fine from a terminal but fails to launch from Claude Desktop's config. Check whether your client has the same limitation before assuming a bare command name will work.
 
+---
+
 #### Claude Code
 
 ```bash
-claude mcp add --transport stdio gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=<your token> -- /absolute/path/from/which/gitea-mcp
+claude mcp add --transport stdio gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=YOUR_TOKEN_HERE -- /absolute/path/from/which/gitea-mcp
 ```
 
 Docs: [code.claude.com/docs/en/mcp-quickstart](https://code.claude.com/docs/en/mcp-quickstart)
 
+---
+
 #### Codex
 
 ```bash
-codex mcp add gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=<your token> -- /absolute/path/from/which/gitea-mcp
+codex mcp add gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=YOUR_TOKEN_HERE -- /absolute/path/from/which/gitea-mcp
 ```
 
 Docs: [learn.chatgpt.com/docs/extend/mcp](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
+
+---
 
 #### Hermes Agent
 
@@ -147,6 +153,8 @@ mcp_servers:
 ```
 
 Docs: [hermes-agent.nousresearch.com/docs/user-guide/features/mcp](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
+
+---
 
 #### OpenCode
 
