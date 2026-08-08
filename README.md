@@ -90,6 +90,9 @@ gitea-mcp
 
 `gitea_mcp` works the same way with every client below: point it at the installed command's absolute path, and set `GITEA_BASE_URL`/`GITEA_TOKEN` in the environment it launches with. Each client just has its own config file and format for expressing that.
 
+> [!NOTE]
+> Claude Code's and Hermes Agent's commands below were run for real, against those tools' actual CLIs, to confirm they work as written (Hermes Agent's syntax turned out to need real correction, not just doc lookup). Claude Desktop, Codex, and OpenCode's examples are verified against each project's own documentation but not executed end-to-end here — if any of them breaks for you, please open an issue.
+
 First, find the installed command's absolute path:
 
 ```bash
@@ -141,16 +144,12 @@ Docs: [learn.chatgpt.com/docs/extend/mcp](https://learn.chatgpt.com/docs/extend/
 
 #### Hermes Agent
 
-In `~/.hermes/config.yaml`:
-
-```yaml
-mcp_servers:
-  gitea:
-    command: "/absolute/path/from/which/gitea-mcp"
-    env:
-      GITEA_BASE_URL: "https://gitea.example.com"
-      GITEA_TOKEN: "<your token>"
+```bash
+hermes mcp add gitea --command /absolute/path/from/which/gitea-mcp --env GITEA_BASE_URL=https://gitea.example.com GITEA_TOKEN=YOUR_TOKEN_HERE
 ```
+
+> [!IMPORTANT]
+> `--env` takes multiple `KEY=value` pairs after a single flag (space-separated), not repeated `--env` flags like Claude Code/Codex use. If you also need `--args`, put it *after* `--env` — `--args` is variadic and consumes everything following it, so anything after it (including a later `--env`) gets swallowed as an argument instead.
 
 Docs: [hermes-agent.nousresearch.com/docs/user-guide/features/mcp](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
 
