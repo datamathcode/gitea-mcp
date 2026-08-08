@@ -125,6 +125,14 @@ claude mcp add --transport stdio gitea --env GITEA_BASE_URL=https://gitea.exampl
 
 Docs: [code.claude.com/docs/en/mcp-quickstart](https://code.claude.com/docs/en/mcp-quickstart)
 
+#### Codex
+
+```bash
+codex mcp add gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=<your token> -- /absolute/path/from/which/gitea-mcp
+```
+
+Docs: [learn.chatgpt.com/docs/extend/mcp](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
+
 Any MCP client launches the server the same way: as a subprocess, talking over stdio — no port to open, no service to keep running.
 
 ## Available tools
