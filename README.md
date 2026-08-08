@@ -88,13 +88,15 @@ gitea-mcp
 
 ### Add to an MCP client
 
-Claude Desktop's configuration is shown below as a concrete example — other clients follow the same pattern (absolute path to the command, `GITEA_BASE_URL`/`GITEA_TOKEN` in its environment) with their own config file and format.
+`gitea_mcp` works the same way with every client below: point it at the installed command's absolute path, and set `GITEA_BASE_URL`/`GITEA_TOKEN` in the environment it launches with. Each client just has its own config file and format for expressing that.
 
 First, find the installed command's absolute path:
 
 ```bash
 which gitea-mcp
 ```
+
+#### Claude Desktop
 
 In Claude Desktop's MCP config (`claude_desktop_config.json`):
 
@@ -114,6 +116,64 @@ In Claude Desktop's MCP config (`claude_desktop_config.json`):
 
 > [!IMPORTANT]
 > Use the full path from `which gitea-mcp`, not just `"gitea-mcp"`. Claude Desktop, launched via Finder/Dock on macOS, doesn't inherit your shell's `PATH` additions — a bare command name resolves fine from a terminal but fails to launch from Claude Desktop's config. Check whether your client has the same limitation before assuming a bare command name will work.
+
+---
+
+#### Claude Code
+
+```bash
+claude mcp add --transport stdio gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=YOUR_TOKEN_HERE -- /absolute/path/from/which/gitea-mcp
+```
+
+Docs: [code.claude.com/docs/en/mcp-quickstart](https://code.claude.com/docs/en/mcp-quickstart)
+
+---
+
+#### Codex
+
+```bash
+codex mcp add gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_TOKEN=YOUR_TOKEN_HERE -- /absolute/path/from/which/gitea-mcp
+```
+
+Docs: [learn.chatgpt.com/docs/extend/mcp](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
+
+---
+
+#### Hermes Agent
+
+In `~/.hermes/config.yaml`:
+
+```yaml
+mcp_servers:
+  gitea:
+    command: "/absolute/path/from/which/gitea-mcp"
+    env:
+      GITEA_BASE_URL: "https://gitea.example.com"
+      GITEA_TOKEN: "<your token>"
+```
+
+Docs: [hermes-agent.nousresearch.com/docs/user-guide/features/mcp](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
+
+---
+
+#### OpenCode
+
+In `.opencode.json` — note `env` here is an array of `"KEY=value"` strings, not an object like the other clients above:
+
+```json
+{
+  "mcpServers": {
+    "gitea": {
+      "type": "stdio",
+      "command": "/absolute/path/from/which/gitea-mcp",
+      "args": [],
+      "env": ["GITEA_BASE_URL=https://gitea.example.com", "GITEA_TOKEN=<your token>"]
+    }
+  }
+}
+```
+
+Docs: [opencode-ai-opencode.mintlify.app/features/mcp-integration](https://opencode-ai-opencode.mintlify.app/features/mcp-integration)
 
 Any MCP client launches the server the same way: as a subprocess, talking over stdio — no port to open, no service to keep running.
 
