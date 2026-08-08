@@ -133,6 +133,21 @@ codex mcp add gitea --env GITEA_BASE_URL=https://gitea.example.com --env GITEA_T
 
 Docs: [learn.chatgpt.com/docs/extend/mcp](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
 
+#### Hermes Agent
+
+In `~/.hermes/config.yaml`:
+
+```yaml
+mcp_servers:
+  gitea:
+    command: "/absolute/path/from/which/gitea-mcp"
+    env:
+      GITEA_BASE_URL: "https://gitea.example.com"
+      GITEA_TOKEN: "<your token>"
+```
+
+Docs: [hermes-agent.nousresearch.com/docs/user-guide/features/mcp](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
+
 Any MCP client launches the server the same way: as a subprocess, talking over stdio — no port to open, no service to keep running.
 
 ## Available tools
