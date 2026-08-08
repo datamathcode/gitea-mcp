@@ -88,13 +88,15 @@ gitea-mcp
 
 ### Add to an MCP client
 
-Claude Desktop's configuration is shown below as a concrete example — other clients follow the same pattern (absolute path to the command, `GITEA_BASE_URL`/`GITEA_TOKEN` in its environment) with their own config file and format.
+`gitea_mcp` works the same way with every client below: point it at the installed command's absolute path, and set `GITEA_BASE_URL`/`GITEA_TOKEN` in the environment it launches with. Each client just has its own config file and format for expressing that.
 
 First, find the installed command's absolute path:
 
 ```bash
 which gitea-mcp
 ```
+
+#### Claude Desktop
 
 In Claude Desktop's MCP config (`claude_desktop_config.json`):
 
