@@ -4,7 +4,7 @@
 
 # Gitea MCP
 
-**A local MCP server that connects Claude directly to your own Gitea instance — no hosted gateway in between.**
+**A local MCP server that gives Claude Desktop — and any MCP client — the ability to work with a self-hosted Gitea instance.**
 
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/protocol-MCP-6f42c1)](https://modelcontextprotocol.io/)
@@ -14,7 +14,9 @@
 
 ---
 
-Most MCP setups for Git hosting route through a third-party gateway (Composio and similar): the gateway holds your token, brokers every API call, and sits as an opaque intermediary between your agent and your infrastructure. `gitea_mcp` skips that entirely. It runs as a subprocess on your own machine, talks over stdio, and speaks directly to your Gitea instance — your token and repo data never pass through anyone else's server.
+MCP clients — Claude Desktop included — have no built-in way to reach a self-hosted Gitea instance. `gitea_mcp` closes that gap: it's a local MCP server that gives any MCP-compatible client the ability to list and search repos, manage issues and pull requests, and read/write files directly against your own Gitea instance.
+
+As a bonus, it does this without routing through a third-party gateway — most MCP setups for Git hosting (Composio and similar) put a gateway between your agent and your infrastructure, holding your token and brokering every API call. `gitea_mcp` skips that entirely: it runs as a subprocess on your own machine, talks over stdio, and speaks directly to your Gitea instance — your token and repo data never pass through anyone else's server.
 
 > [!NOTE]
 > This project is intentionally local-only. There's no hosted endpoint, no third-party account, and no server to deploy — just a command your MCP client launches on demand.
@@ -74,6 +76,8 @@ The server refuses to start if either variable is missing — no silent fallback
 
 ## Usage
 
+`gitea_mcp` is a standard MCP server communicating over stdio — it works with any MCP-compatible client, not just Claude Desktop. Any client that can launch a local subprocess and speak the MCP protocol can use it; point it at the installed command's path and set `GITEA_BASE_URL`/`GITEA_TOKEN` in the environment it launches with.
+
 ### Run standalone
 
 ```bash
@@ -82,7 +86,9 @@ gitea-mcp
 
 (Running from a source checkout without installing still works too: `python3 gitea_mcp.py`.)
 
-### Add to Claude Desktop
+### Add to an MCP client
+
+Claude Desktop's configuration is shown below as a concrete example — other clients follow the same pattern (absolute path to the command, `GITEA_BASE_URL`/`GITEA_TOKEN` in its environment) with their own config file and format.
 
 First, find the installed command's absolute path:
 
@@ -107,9 +113,9 @@ In Claude Desktop's MCP config (`claude_desktop_config.json`):
 ```
 
 > [!IMPORTANT]
-> Use the full path from `which gitea-mcp`, not just `"gitea-mcp"`. Claude Desktop, launched via Finder/Dock on macOS, doesn't inherit your shell's `PATH` additions — a bare command name resolves fine from a terminal but fails to launch from Claude Desktop's config.
+> Use the full path from `which gitea-mcp`, not just `"gitea-mcp"`. Claude Desktop, launched via Finder/Dock on macOS, doesn't inherit your shell's `PATH` additions — a bare command name resolves fine from a terminal but fails to launch from Claude Desktop's config. Check whether your client has the same limitation before assuming a bare command name will work.
 
-Claude Desktop launches the server as a subprocess and talks to it over stdio — no port to open, no service to keep running.
+Any MCP client launches the server the same way: as a subprocess, talking over stdio — no port to open, no service to keep running.
 
 ## Available tools
 

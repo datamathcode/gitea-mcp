@@ -36,10 +36,10 @@ To maintain a readable and traceable git history:
   pip install -e ".[dev]"
   ```
   `pip install -e .` registers the same `gitea-mcp` console-script entry point the packaged install (`pipx`/`uv`) does — the `[dev]` extra additionally pulls in `pytest` for running the test suite.
-- **Configuration:** `export GITEA_BASE_URL="https://your-gitea-instance"` and `export GITEA_TOKEN="<your token>"` — see the README for the full setup and Claude Desktop config.
+- **Configuration:** `export GITEA_BASE_URL="https://your-gitea-instance"` and `export GITEA_TOKEN="<your token>"` — see the README for the full setup and MCP client configuration.
 
 ### 2.2 Branching Strategy
-- **Naming Convention:** `feature/<short-description>` for new tools/capabilities, `fix/<short-description>` for bug fixes.
+- **Naming Convention:** `feature/<short-description>` for new tools/capabilities, `fix/<short-description>` for bug fixes, `docs/<short-description>` for documentation-only changes.
 - **Target Branch:** All PRs target `main` — there is no separate `develop` branch for this project.
 
 ### 2.3 Submission Checklist
