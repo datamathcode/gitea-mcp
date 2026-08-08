@@ -148,6 +148,25 @@ mcp_servers:
 
 Docs: [hermes-agent.nousresearch.com/docs/user-guide/features/mcp](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
 
+#### OpenCode
+
+In `.opencode.json` — note `env` here is an array of `"KEY=value"` strings, not an object like the other clients above:
+
+```json
+{
+  "mcpServers": {
+    "gitea": {
+      "type": "stdio",
+      "command": "/absolute/path/from/which/gitea-mcp",
+      "args": [],
+      "env": ["GITEA_BASE_URL=https://gitea.example.com", "GITEA_TOKEN=<your token>"]
+    }
+  }
+}
+```
+
+Docs: [opencode-ai-opencode.mintlify.app/features/mcp-integration](https://opencode-ai-opencode.mintlify.app/features/mcp-integration)
+
 Any MCP client launches the server the same way: as a subprocess, talking over stdio — no port to open, no service to keep running.
 
 ## Available tools
