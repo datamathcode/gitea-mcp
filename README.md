@@ -14,7 +14,7 @@
 
 ---
 
-Claude Desktop — and MCP clients generally — have no built-in way to work with a self-hosted Gitea instance. `gitea_mcp` closes that gap: it's a local MCP server that gives any MCP-compatible client the ability to list and search repos, manage issues and pull requests, and read/write files directly against your own Gitea instance.
+MCP clients — Claude Desktop included — have no built-in way to reach a self-hosted Gitea instance. `gitea_mcp` closes that gap: it's a local MCP server that gives any MCP-compatible client the ability to list and search repos, manage issues and pull requests, and read/write files directly against your own Gitea instance.
 
 As a bonus, it does this without routing through a third-party gateway — most MCP setups for Git hosting (Composio and similar) put a gateway between your agent and your infrastructure, holding your token and brokering every API call. `gitea_mcp` skips that entirely: it runs as a subprocess on your own machine, talks over stdio, and speaks directly to your Gitea instance — your token and repo data never pass through anyone else's server.
 
